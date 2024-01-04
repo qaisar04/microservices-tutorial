@@ -1,0 +1,49 @@
+server:
+  port: 8080
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+spring:
+  application:
+    name: api-gateway
+  main:
+    web-application-type: reactive
+  output:
+    ansi:
+      enabled: always
+  cloud:
+    gateway:
+      routes:
+        # Product Service Route
+        - id: product-service
+          uri: lb://product-service
+          predicates:
+            - Path=/api/product
+        # Order Service Route
+        - id: order-service
+          uri: lb://order-service
+          predicates:
+            - Path=/api/order
+        # Discovery Service Route
+        - id: discovery-service
+          uri: lb://localhost:8761
+          predicates:
+            - Path=/eureka/web
+          filters:
+            - SetPath=/
+        # Discovery Service Static Resources Route
+        - id: discovery-server-static
+          uri: http://localhost:8761
+          predicates:
+            - Path=/eureka/**
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8181/realms/spring-boot-microservices-realm
+logging:
+  level:
+    root: info
+    org.springframework.cloud.gateway.route.RouteDefinitionRouteLocator: info
+    org.springframework.cloud.gateway: trace

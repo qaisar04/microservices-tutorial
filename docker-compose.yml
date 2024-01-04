@@ -1,0 +1,57 @@
+version: '3.7'
+services:
+  postgres-order:
+    container_name: postgres-order
+    image: postgres
+    environment:
+      POSTGRES_DB: order-service
+      POSTGRES_USER: qaisar
+      POSTGRES_PASSWORD: qwerty
+      PGDATA: /data/postgres
+    volumes:
+      - ./volumes/postgres-order:/data/postgres
+    expose:
+      - "5431"
+    ports:
+      - "5431:5431"
+    command: -p 5431
+    restart: always
+
+  postgres-inventory:
+    container_name: postgres-inventory
+    image: postgres
+    environment:
+      POSTGRES_DB: inventory-service
+      POSTGRES_USER: qaisar
+      POSTGRES_PASSWORD: qwerty
+      PGDATA: /data/postgres
+    volumes:
+      - ./volumes/postgres-inventory:/data/postgres
+    ports:
+      - "5432:5432"
+    restart: always
+
+  mongo:
+    container_name: mongo-product
+    image: mongo:4.4.14-rc0-focal
+    restart: always
+    ports:
+      - "27017:27017"
+    expose:
+      - "27017"
+    volumes:
+      - ./volumes/mongo-product:/data/db
+
+  keycloak:
+    container_name: keycloak
+    image: quay.io/keycloak/keycloak:23.0.3
+    ports:
+      - "8181:8080"
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+    command: "start-dev"
+
+
+
+

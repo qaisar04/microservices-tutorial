@@ -1,12 +1,19 @@
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/inventory-service
-    username: root
-    password: mysql
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/inventory-service
+    username: qaisar
+    password: qwerty
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: create
+  application:
+    name: inventory-service
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
 
 server:
-  port: 8082
+  port: 0
