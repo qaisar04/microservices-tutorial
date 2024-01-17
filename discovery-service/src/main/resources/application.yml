@@ -2,8 +2,7 @@ eureka:
   instance:
     hostname: localhost
   client:
-    register-with-eureka: false
-    fetch-registry: false
-
+    register-with-eureka: false # не регистрировать этот клиент в Eureka
+    fetch-registry: false # не получать информацию о других службах из Eureka
 server:
   port: 8761

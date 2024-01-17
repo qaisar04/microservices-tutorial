@@ -13,14 +13,11 @@ public class SecurityConfig {
 
     @Bean
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
-        http.csrf(ServerHttpSecurity.CsrfSpec::disable)
+        return http.csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .authorizeExchange(exchange -> exchange
-                        .pathMatchers("/eureka/**")
-                        .permitAll()
-                        .anyExchange()
-                        .authenticated())
-                .oauth2ResourceServer(spec -> spec.jwt(Customizer.withDefaults()));
-        return http.build();
+                        .pathMatchers("/eureka/**").permitAll()
+                        .anyExchange().authenticated())
+                .oauth2ResourceServer(spec -> spec.jwt(Customizer.withDefaults()))
+                .build();
     }
-
 }
