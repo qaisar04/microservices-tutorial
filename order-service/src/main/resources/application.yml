@@ -9,6 +9,13 @@ spring:
       ddl-auto: create-drop
   application:
     name: order-service
+  kafka:
+    bootstrap-servers: localhost:9092
+    template:
+      default-topic: notificationTopic
+    producer:
+      key-serializer: org.apahce.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.StringSerializer
 eureka:
   client:
     serviceUrl:
@@ -61,4 +68,3 @@ server:
   port: 8081
 
 # http://localhost:8081/actuator/health
-
