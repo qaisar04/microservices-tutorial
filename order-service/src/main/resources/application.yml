@@ -24,7 +24,12 @@ management:
   endpoint:
     health:
       show-details: always
-
+  zipkin:
+    tracing:
+      endpoint: http://localhost:9411/api/v2/spans
+  tracing:
+    sampling:
+      probability: 1.0
 # resilience4j basic properties
 resilience4j:
   circuitbreaker:
@@ -36,24 +41,22 @@ resilience4j:
         sliding-window-size: 5
         failure-rate-threshold: 50
         wait-duration-in-open-state:
-         seconds: 5
+          seconds: 5
         permitted-number-of-calls-in-half-open-state: 3
         automatic-transition-from-open-to-half-open-enabled: true
-# resilience4j timeout properties
+  # resilience4j timeout properties
   timelimiter:
     instances:
       inventory:
         timeout-duration:
           seconds: 3
-# resilience4j retry properties
+  # resilience4j retry properties
   retry:
     instances:
       inventory:
         max-attempts: 3
         wait-duration:
           seconds: 5
-
-
 server:
   port: 8081
 

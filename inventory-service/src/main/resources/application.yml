@@ -15,3 +15,10 @@ eureka:
       defaultZone: http://localhost:8761/eureka/
 server:
   port: 8082
+management:
+  zipkin:
+    tracing:
+      endpoint: http://localhost:9411/api/v2/spans
+  tracing:
+    sampling:
+      probability: 1.0
