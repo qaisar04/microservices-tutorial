@@ -14,8 +14,14 @@ spring:
     template:
       default-topic: notificationTopic
     producer:
-      key-serializer: org.apahce.kafka.common.serialization.StringSerializer
-      value-serializer: org.springframework.kafka.support.serializer.StringSerializer
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring:
+          json:
+           type:
+            mapping: event:kz.baltabayev.orderservice.event.OrderPlacedEvent
+
 eureka:
   client:
     serviceUrl:
